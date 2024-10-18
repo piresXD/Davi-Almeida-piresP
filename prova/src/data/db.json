@@ -1,7 +1,23 @@
 {
-    "login":[{
-        "email": "admin@.com",
-        "senha": "4321"
-    }
+    "listProd": [
+      {
+        "id": "1",
+        "nome": "bolo de morango",
+        "preco": "5",
+        "tipo": "bolo"
+      },
+      {
+        "id": "2",
+        "nome": "torta de frango",
+        "preco": "5",
+        "tipo": "torta"
+      },
+      {
+        "id": "3",
+        "nome": "suco de laranja",
+        "preco": "3",
+        "tipo": "suco"
+      }
+
     ]
-}
+  }
