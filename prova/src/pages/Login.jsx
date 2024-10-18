@@ -4,32 +4,36 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import Nav from 'react-bootstrap/Nav';
-
 import { useNavigate } from 'react-router-dom';
+
 const url = "http://localhost:5000/usuarios";
 
 const Login = () => {
 
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
+
   const [errorMessage, setErrorMessage] = useState('')
 
-  const navigate = useNavigate()
+  const [alertaClass, setAlertaClass] = useState('mb-3 d-none');const [alertaMensagem, setAlertaMensagem] = useState('');const [alertaVariante, setAlertaVariante] = useState('danger');
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(email === 'docemel@sodoce.com.br' && senha === 'brigadeiro123'){
+        console.log("Entrou");
+        setAlertaClass('mb-3 alert-success'); // Classe atualizada para sucesso
+        setAlertaMensagem('Login efetuado com sucesso');
+        setAlertaVariante('success');
+        alert("LOGIN FEITO COM SUCESSO");
+    }else{
+        setAlertaClass('mb-3 alert-danger'); // Classe de erro
+        setAlertaMensagem("Usuário ou senha inválidos");
+        setAlertaVariante('danger');
 
-    const emailc = 'admin@gmail.com';
-    const senhac = '4321';
-
-    if (email === emailc && senha === senhac)
-    {
-      alert('Login bem-sucedido!');
-      navigate('./produtos'); // Redireciona para a rota '/Home'
-    } else {
-      setErrorMessage('Credenciais incorretas. Tente novamente.');
     }
+    
   }
     return (
         <div>
@@ -62,6 +66,11 @@ const Login = () => {
                             onChange={(e) => { setSenha(e.target.value); }}
                         />
                     </FloatingLabel>
+
+                    <Alert key={alertaVariante} variant={alertaVariante} className={alertaClass}>
+                        {alertaMensagem}
+                    </Alert>
+
                     <Button variant="primary" type="submit">
                         Logar
                     </Button>
