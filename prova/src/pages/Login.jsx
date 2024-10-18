@@ -5,8 +5,10 @@ import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import NavBarra from "../components/NavBarra"
+import './Login.module.css'
 
-const url = "http://localhost:5000/usuarios";
+const url = "http://localhost:3000/login";
 
 const Login = () => {
 
@@ -17,7 +19,25 @@ const Login = () => {
 
   const [alertaClass, setAlertaClass] = useState('mb-3 d-none');const [alertaMensagem, setAlertaMensagem] = useState('');const [alertaVariante, setAlertaVariante] = useState('danger');
 
-  
+
+
+
+  const [listProd, setListProd] = useState([])
+
+  useEffect(() => {
+    async function fetchData() {
+        try {
+            const res = await fetch(url);
+            const users = await res.json();
+            setListProd(users);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+    fetchData();
+}, []);
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +47,7 @@ const Login = () => {
         setAlertaMensagem('Login efetuado com sucesso');
         setAlertaVariante('success');
         alert("LOGIN FEITO COM SUCESSO");
+        navigate("/Produtos")
     }else{
         setAlertaClass('mb-3 alert-danger'); // Classe de erro
         setAlertaMensagem("Usuário ou senha inválidos");
